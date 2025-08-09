@@ -6,29 +6,22 @@
 #define dout(...) void(0)
 #endif
 
-const int N = 8;
-
 int main() {
   std::cin.tie(nullptr)->sync_with_stdio(false);
-  std::vector<std::string> g(N);
-  for (std::string &s : g) {
-    std::cin >> s;
+  int n;
+  std::cin >> n;
+  std::vector<int> p(n);
+  for (int &x : p) {
+    std::cin >> x;
   }
-  auto solve = [&](auto &&self, int r, auto &&ca, auto &&d1a, auto &&d2a) -> int {
-    if (r == N) {
-      return 1;
+  long long ans = LONG_LONG_MAX;
+  for (int b = 0; b < (1 << n); b++) {
+    long long sum[2] = {};
+    for (int i = 0; i < n; i++) {
+      sum[(b >> i) & 1] += p[i];
     }
-    int ans = 0;
-    for (int c = 0; c < N; c++) {
-      if (g[r][c] == '.' && !ca[c] && !d1a[r + c] && !d2a[r - c + N - 1]) {
-        ca[c] = d1a[r + c] = d2a[r - c + N - 1] = true;
-        ans += self(self, r + 1, ca, d1a, d2a);
-        ca[c] = d1a[r + c] = d2a[r - c + N - 1] = false;
-      }
-    }
-    return ans;
-  };
-  int ans = solve(solve, 0, std::vector<bool>(N), std::vector<bool>(2 * N - 1), std::vector<bool>(2 * N - 1));
+    ans = std::min(ans, std::abs(sum[0] - sum[1]));
+  }
   std::cout << ans << '\n';
   return 0;
 }

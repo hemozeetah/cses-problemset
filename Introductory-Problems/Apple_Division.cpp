@@ -6,8 +6,6 @@
 #define dout(...) void(0)
 #endif
 
-const long long INF = 1e18L;
-
 int main() {
   std::cin.tie(nullptr)->sync_with_stdio(false);
   int n;
@@ -16,7 +14,7 @@ int main() {
   for (int &x : p) {
     std::cin >> x;
   }
-  long long ans = INF;
+  long long ans = LONG_LONG_MAX;
   for (int b = 0; b < (1 << n); b++) {
     long long sum[2] = {};
     for (int i = 0; i < n; i++) {
