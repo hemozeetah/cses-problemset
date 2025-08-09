@@ -8,20 +8,16 @@
 
 int main() {
   std::cin.tie(nullptr)->sync_with_stdio(false);
-  int n;
-  std::cin >> n;
-  std::vector<int> p(n);
-  for (int &x : p) {
-    std::cin >> x;
+  std::string s;
+  std::cin >> s;
+  std::sort(s.begin(), s.end());
+  std::vector<std::string> ans;
+  do {
+    ans.push_back(s);
+  } while (std::next_permutation(s.begin(), s.end()));
+  std::cout << (int)ans.size() << '\n';
+  for (const std::string &t : ans) {
+    std::cout << t << '\n';
   }
-  long long ans = LONG_LONG_MAX;
-  for (int b = 0; b < (1 << n); b++) {
-    long long sum[2] = {};
-    for (int i = 0; i < n; i++) {
-      sum[(b >> i) & 1] += p[i];
-    }
-    ans = std::min(ans, std::abs(sum[0] - sum[1]));
-  }
-  std::cout << ans << '\n';
   return 0;
 }

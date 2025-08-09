@@ -10,21 +10,13 @@ int main() {
   std::cin.tie(nullptr)->sync_with_stdio(false);
   std::string s;
   std::cin >> s;
-  int n = (int)s.size();
-  std::vector<int> ord(n);
-  std::iota(ord.begin(), ord.end(), 0);
-  std::vector<std::string> all;
+  std::sort(s.begin(), s.end());
+  std::vector<std::string> ans;
   do {
-    std::string t(n, ' ');
-    for (int i = 0; i < n; i++) {
-      t[i] = s[ord[i]];
-    }
-    all.push_back(t);
-  } while (std::next_permutation(ord.begin(), ord.end()));
-  std::sort(all.begin(), all.end());
-  all.resize(std::unique(all.begin(), all.end()) - all.begin());
-  std::cout << (int)all.size() << '\n';
-  for (const std::string &t : all) {
+    ans.push_back(s);
+  } while (std::next_permutation(s.begin(), s.end()));
+  std::cout << (int)ans.size() << '\n';
+  for (const std::string &t : ans) {
     std::cout << t << '\n';
   }
   return 0;
