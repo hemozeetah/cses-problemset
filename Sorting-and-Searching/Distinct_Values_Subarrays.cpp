@@ -7,24 +7,23 @@
 #endif
 
 int main() {
-  std::cin.tie(0)->sync_with_stdio(false);
+  std::cin.tie(nullptr)->sync_with_stdio(false);
   int n;
   std::cin >> n;
   std::vector<int> x(n);
   for (int &e : x) {
     std::cin >> e;
   }
-  long long ans = (long long)(n + 1) * n / 2;
-  std::map<int, std::pair<int, int>> appeared;
-  for (int i = 0; i < n; i++) {
-    auto it = appeared.find(x[i]);
-    if (it != appeared.end()) {
-      auto [j, cnt] = it->second;
-      ans -= (long long)(n - i) * cnt;
-      appeared[x[i]] = std::pair(i, i - j);
-    } else {
-      appeared[x[i]] = std::pair(i, i + 1);
+  long long ans = 0;
+  std::map<int, int> pos;
+  int l = -1;
+  for (int r = 0; r < n; r++) {
+    auto it = pos.find(x[r]);
+    if (it != pos.end()) {
+      l = std::max(l, it->second);
     }
+    ans += r - l;
+    pos[x[r]] = r;
   }
   std::cout << ans << '\n';
   return 0;
