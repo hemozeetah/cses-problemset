@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := run
 
 CXX := g++
-CXXFLAGS := -DLOCAL -std=c++20 -O2 -Wall
+CXXFLAGS := -std=c++20 -Wall -DLOCAL -O2
 
 sol: sol.cpp
 	$(CXX) $(CXXFLAGS) sol.cpp -o sol
